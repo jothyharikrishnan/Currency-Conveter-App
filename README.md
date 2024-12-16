@@ -1,5 +1,10 @@
 ### Currency Converter App
 
+<img width="312" alt="Screenshot 2024-12-16 at 10 51 39 AM" src="https://github.com/user-attachments/assets/d9839d87-271e-4037-960d-d4e009352552" />
+
+<img width="324" alt="Screenshot 2024-12-16 at 11 05 31 AM" src="https://github.com/user-attachments/assets/b66480de-2484-4ed3-81a0-f8af804909c8" />
+
+
 #### Overview
 The Currency Converter App is a modern Android application designed to provide real-time currency conversion. It utilizes a robust architecture, following the Clean Architecture principles, and adheres to the Model-View-Intent (MVI) design pattern. The app also supports both light and dark themes, ensuring a pleasant user experience across different environments.
 
