@@ -70,3 +70,10 @@ com.apps.currency_exchange
 
 ### Theming Support
 The app supports both light and dark themes, enhancing the user experience by adapting to different lighting conditions and user preferences. This is achieved using Jetpack Compose's theming capabilities, ensuring a cohesive look and feel across the app.
+
+### Future Development
+**Unit Testing:** Implement unit tests to ensure that individual components and functions work as expected. Utilize frameworks such as JUnit and Mockito.
+
+**UI Testing:** Develop UI tests to verify the user interface interactions and end-to-end functionality using tools like Espresso and Compose Test.
+
+**User Experience Enhancements:** Enhance user experience to improve the usability and functionality of the app.
