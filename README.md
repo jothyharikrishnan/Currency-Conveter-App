@@ -68,11 +68,5 @@ com.apps.currency_exchange
      - **ExchangeState.kt**: Defines the state model for the exchange feature.
      - **ExchangeAction.kt**: Defines possible actions that can trigger state changes.
 
-### Clean Architecture and MVI Pattern
-The app is built using the Clean Architecture principles, which ensure a clear separation of concerns by dividing the codebase into distinct layers:
-- **Data Layer**: Responsible for data handling, including API interactions and data storage.
-- **Domain Layer**: Contains business logic and use cases.
-- **Presentation Layer**: Manages the UI and state, following the MVI pattern to handle user interactions effectively.
-
 ### Theming Support
 The app supports both light and dark themes, enhancing the user experience by adapting to different lighting conditions and user preferences. This is achieved using Jetpack Compose's theming capabilities, ensuring a cohesive look and feel across the app.
