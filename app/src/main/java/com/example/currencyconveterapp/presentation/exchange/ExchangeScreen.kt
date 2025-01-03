@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -64,10 +65,11 @@ private fun ExchangeScreen(
 ){
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("ExchangeScreen"),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-
         // Background circle shape at the right top
         Box(modifier = Modifier
             .weight(0.7f)
@@ -78,7 +80,8 @@ private fun ExchangeScreen(
                     .fillMaxSize()
                     .offset(200.dp, (-40).dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.tertiary.copy(0.1f)))
+                    .background(MaterialTheme.colorScheme.tertiary.copy(0.1f))
+            )
 
             // Background circle shape at the left bottom
             Box(
@@ -133,6 +136,7 @@ private fun ExchangeScreen(
                                     }
                                 }
                                 .padding(16.dp)
+                                .testTag("CurrencyItem_$index")
                         )
                         HorizontalDivider()
                     }
@@ -144,13 +148,12 @@ private fun ExchangeScreen(
         }
 
         InputSection(
-            modifier = Modifier.weight(1.3f),
-            onAction =onAction
+            modifier = Modifier
+                .weight(1.3f)
+                .testTag("InputSection"),
+            onAction = onAction
         )
-
-
     }
-
 }
 
 @Composable
@@ -160,7 +163,9 @@ fun ExchangeSection(
     onOpenCurrencyPicker: (Boolean) -> Unit
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .testTag("ExchangeSection"),
         verticalArrangement = Arrangement.Center
     ) {
         Row(
@@ -172,9 +177,9 @@ fun ExchangeSection(
         ) {
 
             Row(
-                modifier = Modifier.clickable {
-                    onOpenCurrencyPicker(true)
-                },
+                modifier = Modifier
+                    .clickable { onOpenCurrencyPicker(true) }
+                    .testTag("FromCurrency"),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -192,13 +197,14 @@ fun ExchangeSection(
             }
 
             Text(
-                text = state.amount,
+                text = state.amount.ifBlank { "1" },
                 fontFamily = FontFamily.Monospace,
                 fontSize = 30.sp,
                 textAlign = TextAlign.End,
                 maxLines = 1,
                 color = MaterialTheme.colorScheme.primary,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.testTag("AmountText")
             )
 
         }
@@ -214,9 +220,9 @@ fun ExchangeSection(
         ) {
 
             Row(
-                modifier = Modifier.clickable {
-                    onOpenCurrencyPicker(false)
-                },
+                modifier = Modifier
+                    .clickable { onOpenCurrencyPicker(false) }
+                    .testTag("ToCurrency"),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -239,7 +245,8 @@ fun ExchangeSection(
                 fontSize = 30.sp,
                 textAlign = TextAlign.End,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.testTag("ResultText")
             )
 
         }
@@ -255,24 +262,26 @@ fun InputSection(
         modifier = modifier
             .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
             .background(MaterialTheme.colorScheme.background)
+            .testTag("InputSection")
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            Input(text = "7") {
+            Input(text = "7", modifier = Modifier.testTag("InputItem_7")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "8") {
+            Input(text = "8", modifier = Modifier.testTag("InputItem_8")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "9") {
+            Input(text = "9", modifier = Modifier.testTag("InputItem_9")) {
                 onAction(ExchangeAction.Input(it))
             }
             Input(
                 text = "C",
-                color = Color.Red
+                color = Color.Red,
+                modifier = Modifier.testTag("InputItem_C")
             ) {
                 onAction(ExchangeAction.Clear)
             }
@@ -283,16 +292,16 @@ fun InputSection(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            Input(text = "4") {
+            Input(text = "4", modifier = Modifier.testTag("InputItem_4")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "5") {
+            Input(text = "5", modifier = Modifier.testTag("InputItem_5")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "6") {
+            Input(text = "6", modifier = Modifier.testTag("InputItem_6")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input()
+            Input(modifier = Modifier.testTag("InputItem_Empty_1"))
         }
 
         Row(
@@ -300,16 +309,16 @@ fun InputSection(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            Input(text = "1") {
+            Input(text = "1", modifier = Modifier.testTag("InputItem_1")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "2") {
+            Input(text = "2", modifier = Modifier.testTag("InputItem_2")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "3") {
+            Input(text = "3", modifier = Modifier.testTag("InputItem_3")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input()
+            Input(modifier = Modifier.testTag("InputItem_Empty_2"))
         }
 
         Row(
@@ -317,24 +326,26 @@ fun InputSection(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            Input(text = "00") {
+            Input(text = "00", modifier = Modifier.testTag("InputItem_00")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = "0") {
+            Input(text = "0", modifier = Modifier.testTag("InputItem_0")) {
                 onAction(ExchangeAction.Input(it))
             }
-            Input(text = ".") {
+            Input(text = ".", modifier = Modifier.testTag("InputItem_Dot")) {
                 onAction(ExchangeAction.Input(it))
             }
             Input(
                 icon = Icons.AutoMirrored.Rounded.Backspace,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.testTag("InputItem_Backspace")
             ) {
                 onAction(ExchangeAction.Delete)
             }
         }
     }
 }
+
 
 @Composable
 fun RowScope.Input(
@@ -343,12 +354,13 @@ fun RowScope.Input(
     icon: ImageVector? = null,
     color: Color = MaterialTheme.colorScheme.onBackground,
     onClick: (String) -> Unit = {}
-){
+) {
     Box(
         modifier = modifier
             .weight(1f)
             .fillMaxHeight()
-            .clickable { onClick(text ?: "") },
+            .clickable { onClick(text ?: "") }
+            .testTag(text ?: icon?.name ?: "InputItem"),
         contentAlignment = Alignment.Center
     ) {
         if (text != null) {
@@ -368,6 +380,7 @@ fun RowScope.Input(
         }
     }
 }
+
 
 @Preview
 @Composable

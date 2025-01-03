@@ -20,6 +20,7 @@ class ExchangeViewModel @Inject constructor(
     private val _state = MutableStateFlow(ExchangeState())
     val state: StateFlow<ExchangeState> = _state.asStateFlow()
 
+
     init {
         viewModelScope.launch {
             convert()
@@ -50,7 +51,7 @@ class ExchangeViewModel @Inject constructor(
 
             is ExchangeAction.Input -> {
                 _state.value = _state.value.copy(
-                    amount = _state.value.amount + action.value
+                    amount = _state.value.amount + action.value // Append the new value to the existing amount
                 )
 
                 convert()
@@ -74,19 +75,28 @@ class ExchangeViewModel @Inject constructor(
         }
     }
 
-    private fun convert() {
+
+
+
+    fun convert() {
         viewModelScope.launch {
             try {
-                _state.value = _state.value.copy(
-                    result = convertUserCase(
-                        fromCurrency = _state.value.from.code,
-                        toCurrency = _state.value.to.code,
-                        amount = _state.value.amount
-                    )
+                println("Converting from: ${_state.value.from}, to: ${_state.value.to}, amount: ${_state.value.amount}")
+                val result = convertUserCase(
+                    fromCurrency = _state.value.from.code,
+                    toCurrency = _state.value.to.code,
+                    amount = _state.value.amount.ifBlank { "1" }
                 )
+                println("Conversion result: $result")
+                _state.value = _state.value.copy(result = result)
             } catch (e: Exception) {
-                // Handle error (e.g., log it, show a message to the user)
+                _state.value = _state.value.copy(result = "Error: ${e.message}")
+                println("Error during conversion: ${e.message}")
             }
         }
     }
+
 }
+
+
+
